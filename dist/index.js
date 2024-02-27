@@ -26004,8 +26004,8 @@ function run() {
             fs.writeFileSync(secretsPath, JSON.stringify(secrets));
             const parsedNotebookFile = path.join(outputDir, path.basename(notebookFile));
             // Install dependencies
-            yield exec.exec('python3 -m pip install papermill==2.5.0 ipykernel==6.29.3 nbformat==5.9.2 nbconvert==7.16.1');
-            yield exec.exec('python3 -m ipykernel install --user');
+            yield exec.exec('python -m pip install papermill==2.5.0 ipykernel==6.29.3 nbformat==5.9.2 nbconvert==7.16.1');
+            yield exec.exec('python -m ipykernel install --user');
             // Execute notebook
             const pythonCode = `
 import papermill as pm
