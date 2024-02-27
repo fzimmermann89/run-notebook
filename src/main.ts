@@ -4,10 +4,10 @@ import * as fs from "fs";
 import * as path from "path";
 
 interface IRunnerContext {
-  os: string;
-  tool_cache: string;
+  os?: string;
+  tool_cache?: string;
   temp: string;
-  workspace: string;
+  workspace?: string;
 }
 
 interface IGithubContext {
@@ -15,9 +15,9 @@ interface IGithubContext {
 }
 
 // These are added run actions using "env:"
-let runner: IRunnerContext = JSON.parse(process.env.RUNNER || "");
-let secrets: any = JSON.parse(process.env.SECRETS || "");
-let github: IGithubContext = JSON.parse(process.env.GITHUB || "");
+let runner: IRunnerContext = JSON.parse(process.env.RUNNER || '{"temp": "/temp"}');
+let secrets: any = JSON.parse(process.env.SECRETS || '{}');
+let github: IGithubContext = JSON.parse(process.env.GITHUB || '{"workspace": "."}');
 
 const outputDir = path.join(github.workspace, "nb-runner");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");

@@ -25980,9 +25980,9 @@ const exec = __importStar(__nccwpck_require__(1514));
 const fs = __importStar(__nccwpck_require__(7147));
 const path = __importStar(__nccwpck_require__(1017));
 // These are added run actions using "env:"
-let runner = JSON.parse(process.env.RUNNER || "");
-let secrets = JSON.parse(process.env.SECRETS || "");
-let github = JSON.parse(process.env.GITHUB || "");
+let runner = JSON.parse(process.env.RUNNER || '{"temp": "/temp"}');
+let secrets = JSON.parse(process.env.SECRETS || '{}');
+let github = JSON.parse(process.env.GITHUB || '{"workspace": "."}');
 const outputDir = path.join(github.workspace, "nb-runner");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");
 const executeScriptPath = path.join(scriptsDir, "nb-runner.py");
