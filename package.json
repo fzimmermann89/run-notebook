@@ -3,21 +3,23 @@
   "version": "0.0.0",
   "private": true,
   "description": "Run notebook action",
-  "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "package": "ncc build --source-map --license licenses.txt"
+    "package": "ncc build src/index.ts --source-map --license licenses.txt"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/node12-template.git"
+    "url": "git+https://github.com/fzimmermann89/run-notebook"
   },
   "keywords": [
     "actions",
     "node",
     "setup"
   ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "author": "yaananth",
   "license": "MIT",
   "dependencies": {

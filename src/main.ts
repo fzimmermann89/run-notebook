@@ -25,7 +25,7 @@ const executeScriptPath = path.join(scriptsDir, "nb-runner.py");
 const secretsPath = path.join(runner.temp, "secrets.json");
 const papermillOutput = path.join(github.workspace, "papermill-nb-runner.out");
 
-async function run() {
+export async function run() {
   try {
     const notebookFile = core.getInput('notebook');
     const paramsFile = core.getInput('params');
@@ -110,5 +110,3 @@ for task in as_completed(results):
     core.setFailed((error as any).message);
   }
 }
-
-run();
