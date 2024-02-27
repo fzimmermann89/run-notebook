@@ -57,7 +57,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v3
-    - uses: yaananth/run-notebook@v2
+    - uses: fzimmermann89/run-notebook@v3
       env:
         RUNNER: ${{ toJson(runner) }}
         SECRETS: ${{ toJson(secrets) }}
@@ -67,18 +67,16 @@ jobs:
         params: "PATHTOPARAMS.json"
         isReport: False
         poll: True
-    - uses: yaananth/run-notebook@v2
+    - uses: fzimmermann89/run-notebook@v3
       env:
         RUNNER: ${{ toJson(runner) }}
-        SECRETS: ${{ toJson(secrets) }}
-        GITHUB: ${{ toJson(github) }}
       with:
         notebook: "notebook2.ipynb"
     - uses: actions/upload-artifact@v3
       if: always()
       with:
         name: output
-        path: ${{ RUNNER.temp }}/nb-runner
+        path: ${{github.workspace}}/nb-runner
       env:
         RUNNER: ${{ toJson(runner) }}
 ```
@@ -130,30 +128,6 @@ print(os.environ["secretKeyName"])
 
 ```
 
-# Contributing
-## Creating tag
-```
-git checkout -b releases/v1
-rm -rf node_modules
-sed -i '/node_modules/d' .gitignore # Bash command that removes node_modules from .gitignore
-sed -i 'lib' .gitignore # Bash command that removes lib from .gitignore
-npm run build
-git add node_modules .gitignore
-git commit -am node_modules
-git push origin releases/v1
-git push origin :refs/tags/v1
-git tag -fa v1 -m "Update v1 tag"
-git push origin v1
-```
-## Updating tag
-```
-git checkout tags/v1 -b testtv1
-npm run build
-git commit -am "update"
-git tag -fa v1 -m "Update v1 tag"
-git push origin v1 --force
-git push origin releases/v1
-```
 
 ## Resources
 
