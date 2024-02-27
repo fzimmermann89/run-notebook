@@ -26059,7 +26059,7 @@ for task in as_completed(results):
 `;
             fs.writeFileSync(executeScriptPath, pythonCode);
             yield exec.exec(`cat ${executeScriptPath}`);
-            yield exec.exec(`python3 ${executeScriptPath}`);
+            yield exec.exec(`python ${executeScriptPath}`);
             // Convert to HTML
             yield exec.exec(`jupyter nbconvert "${parsedNotebookFile}" --to html`);
         }

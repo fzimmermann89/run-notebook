@@ -97,7 +97,7 @@ for task in as_completed(results):
     fs.writeFileSync(executeScriptPath, pythonCode);
 
     await exec.exec(`cat ${executeScriptPath}`)
-    await exec.exec(`python3 ${executeScriptPath}`);
+    await exec.exec(`python ${executeScriptPath}`);
 
     // Convert to HTML
     await exec.exec(`jupyter nbconvert "${parsedNotebookFile}" --to html`);
