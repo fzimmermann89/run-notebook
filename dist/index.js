@@ -25982,12 +25982,12 @@ const path = __importStar(__nccwpck_require__(1017));
 // These are added run actions using "env:"
 let runner = JSON.parse(process.env.RUNNER || '{"temp": "/temp"}');
 let secrets = JSON.parse(process.env.SECRETS || '{}');
-let github = JSON.parse(process.env.GITHUB || '{"workspace": "."}');
-const outputDir = path.join(github.workspace, "nb-runner");
+let outputpath = core.getInput('outputpath') || process.env.GITHUB_WORSPACE || '.';
+const outputDir = path.join(outputpath, "nb-runner.out");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");
 const executeScriptPath = path.join(scriptsDir, "nb-runner.py");
 const secretsPath = path.join(runner.temp, "secrets.json");
-const papermillOutput = path.join(github.workspace, "papermill-nb-runner.out");
+const papermillOutput = path.join(outputpath, "papermill-nb-runner.out");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -26004,7 +26004,7 @@ function run() {
             fs.writeFileSync(secretsPath, JSON.stringify(secrets));
             const parsedNotebookFile = path.join(outputDir, path.basename(notebookFile));
             // Install dependencies
-            yield exec.exec('python3 -m pip install papermill==2.4.0 ipykernel==6.15.2 nbformat==5.4.0 nbconvert==7.0.0');
+            yield exec.exec('python3 -m pip install papermill==2.5.0 ipykernel==6.29.3 nbformat==5.9.2 nbconvert==7.16.1');
             yield exec.exec('python3 -m ipykernel install --user');
             // Execute notebook
             const pythonCode = `
