@@ -32,11 +32,11 @@ export async function run() {
     const isReport = core.getInput('isReport');
     const poll = core.getInput('poll');
     if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
+      fs.mkdirSync(outputDir, {recursive: true});
     }
 
     if (!fs.existsSync(scriptsDir)) {
-      fs.mkdirSync(scriptsDir);
+      fs.mkdirSync(scriptsDir, {recursive: true});
     }
 
     fs.writeFileSync(secretsPath, JSON.stringify(secrets));
