@@ -61,12 +61,13 @@ jobs:
       env:
         RUNNER: ${{ toJson(runner) }}
         SECRETS: ${{ toJson(secrets) }}
-        GITHUB: ${{ toJson(github) }}
+
       with:
         notebook: "notebook1.ipynb"
         params: "PATHTOPARAMS.json"
         isReport: False
         poll: True
+        outputpath: ${{ github.host-workspace }}
     - uses: fzimmermann89/run-notebook@v3
       env:
         RUNNER: ${{ toJson(runner) }}
@@ -76,7 +77,7 @@ jobs:
       if: always()
       with:
         name: output
-        path: ${{github.workspace}}/nb-runner
+        path: ${{github.host-workspace}}/nb-runner.out
       env:
         RUNNER: ${{ toJson(runner) }}
 ```
@@ -103,6 +104,7 @@ print(chained)
 ```
 
 ## Parameters
+- `outputpath`: path in which the subdirectory nb-runner.out will be created. defaults to workspace.
 - `notebook`: notebook file path to parameterize and execute
 - `params`: params file path to injects as parameters for `notebook`
 - `isReport`: If True, will hide inputs in notebook
