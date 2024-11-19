@@ -9,6 +9,8 @@ This github action runs a jupyter notebook, parameterizes it using [papermill](h
 
 **Note**: This action injects a new parameter called `secretsPath` which is a json file with secrets dumped.
 
+**Note**: Specify the type of your notebook with `KERNEL_NAME` env, default is `None` which means "inherited from the notebook.
+
 ### Example 1 - executing notebook with parameters
 ```
 name: Execute notebook

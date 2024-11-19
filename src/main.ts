@@ -18,6 +18,7 @@ interface IGithubContext {
 let runner: IRunnerContext = JSON.parse(process.env.RUNNER || "");
 let secrets: any = JSON.parse(process.env.SECRETS || "");
 let github: IGithubContext = JSON.parse(process.env.GITHUB || "");
+let kernel_name: string = process.env.KERNEL_NAME || "None" ;  
 
 const outputDir = path.join(github.workspace, "nb-runner");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");
@@ -77,6 +78,7 @@ def run():
     pm.execute_notebook(
       input_path='${notebookFile}',
       output_path='${parsedNotebookFile}',
+      kernel_name='${kernel_name}',
       parameters=dict(extraParams, **params),
       log_output=True,
       report_mode=${!!isReport ? "True" : "False"}
