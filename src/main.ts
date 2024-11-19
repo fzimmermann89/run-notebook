@@ -18,7 +18,7 @@ interface IGithubContext {
 let runner: IRunnerContext = JSON.parse(process.env.RUNNER || "");
 let secrets: any = JSON.parse(process.env.SECRETS || "");
 let github: IGithubContext = JSON.parse(process.env.GITHUB || "");
-let kernel_name: string = process.env.KERNEL_NAME || "python3" ;  
+let kernel_name: string = process.env.KERNEL_NAME || "None" ;  
 
 const outputDir = path.join(github.workspace, "nb-runner");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");
