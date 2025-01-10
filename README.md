@@ -25,7 +25,6 @@ jobs:
     - uses: yaananth/run-notebook@v2
       env:
         RUNNER: ${{ toJson(runner) }}
-        SECRETS: ${{ toJson(secrets) }}
         GITHUB: ${{ toJson(github) }}
       with:
         notebook: "PATHTONOTEBOOK.ipynb"

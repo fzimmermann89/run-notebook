@@ -12,13 +12,11 @@ interface IRunnerContext {
 
 // These are added run actions using "env:"
 let runner: IRunnerContext = JSON.parse(process.env.RUNNER || '{"temp": "/temp"}');
-let secrets: any = JSON.parse(process.env.SECRETS || '{}');
 let outputpath = core.getInput('outputpath') || process.env.GITHUB_WORSPACE || '.'
 
 const outputDir = path.join(outputpath, "nb-runner.out");
 const scriptsDir = path.join(runner.temp, "nb-runner-scripts");
 const executeScriptPath = path.join(scriptsDir, "nb-runner.py");
-const secretsPath = path.join(runner.temp, "secrets.json");
 const papermillOutput = path.join(outputpath, "papermill-nb-runner.out");
 
 export async function run() {
@@ -34,8 +32,6 @@ export async function run() {
     if (!fs.existsSync(scriptsDir)) {
       fs.mkdirSync(scriptsDir, {recursive: true});
     }
-
-    fs.writeFileSync(secretsPath, JSON.stringify(secrets));
 
     const parsedNotebookFile = path.join(outputDir, path.basename(notebookFile));
     // Install dependencies
@@ -53,7 +49,6 @@ from time import sleep
 
 params = {}
 paramsPath = '${paramsFile}'
-extraParams = dict({ "secretsPath": '${secretsPath}' })
 if os.path.exists(paramsPath):
   with open(paramsPath, 'r') as paramsFile:
     params = json.loads(paramsFile.read())
@@ -73,7 +68,7 @@ def run():
     pm.execute_notebook(
       input_path='${notebookFile}',
       output_path='${parsedNotebookFile}',
-      parameters=dict(extraParams, **params),
+      parameters=params,
       log_output=True,
       report_mode=${!!isReport ? "True" : "False"}
     )
